@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f7fbfd"/><stop offset="1" stop-color="#a9c3cf"/></linearGradient>
+    <radialGradient id="face"><stop stop-color="#12455f"/><stop offset="1" stop-color="#061827"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <ellipse cx="256" cy="460" rx="150" ry="28" fill="#00111f" opacity=".55"/>
+  <rect x="78" y="178" width="68" height="126" rx="30" fill="#ffbd31" stroke="#ffdf79" stroke-width="8"/>
+  <rect x="366" y="178" width="68" height="126" rx="30" fill="#ffbd31" stroke="#ffdf79" stroke-width="8"/>
+  <rect x="140" y="246" width="232" height="174" rx="62" fill="url(#metal)" stroke="#5d8498" stroke-width="12"/>
+  <rect x="90" y="280" width="88" height="118" rx="40" fill="url(#metal)" stroke="#5d8498" stroke-width="10"/>
+  <rect x="334" y="280" width="88" height="118" rx="40" fill="url(#metal)" stroke="#5d8498" stroke-width="10"/>
+  <circle cx="123" cy="397" r="40" fill="#ffb928" stroke="#b66e08" stroke-width="8"/>
+  <circle cx="389" cy="397" r="40" fill="#ffb928" stroke="#b66e08" stroke-width="8"/>
+  <rect x="112" y="70" width="288" height="228" rx="98" fill="url(#metal)" stroke="#5d8498" stroke-width="14"/>
+  <rect x="146" y="107" width="220" height="142" rx="62" fill="url(#face)" stroke="#1c7898" stroke-width="10"/>
+  <circle cx="210" cy="170" r="19" fill="#5ef2ff" filter="url(#glow)"/>
+  <circle cx="302" cy="170" r="19" fill="#5ef2ff" filter="url(#glow)"/>
+  <path d="M207 205 Q256 246 305 205" fill="none" stroke="#70f3ff" stroke-width="12" stroke-linecap="round"/>
+  <rect x="192" y="292" width="128" height="76" rx="24" fill="#08283b" stroke="#3fd8ef" stroke-width="8"/>
+  <rect x="219" y="317" width="74" height="24" rx="12" fill="#50eaff" filter="url(#glow)"/>
+  <circle cx="256" cy="392" r="14" fill="#ffbd31"/>
+  <rect x="166" y="386" width="84" height="70" rx="26" fill="#344f61" stroke="#9eb7c3" stroke-width="9"/>
+  <rect x="262" y="386" width="84" height="70" rx="26" fill="#344f61" stroke="#9eb7c3" stroke-width="9"/>
+</svg>
