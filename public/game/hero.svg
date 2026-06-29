@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="jacket" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ee4e31"/><stop offset="1" stop-color="#a82524"/></linearGradient>
+    <linearGradient id="visor" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#0c3e58"/><stop offset=".5" stop-color="#4de8ff"/><stop offset="1" stop-color="#0c3e58"/></linearGradient>
+  </defs>
+  <ellipse cx="256" cy="470" rx="142" ry="24" fill="#00111f" opacity=".55"/>
+  <rect x="155" y="222" width="74" height="202" rx="34" fill="url(#jacket)"/>
+  <rect x="283" y="222" width="74" height="202" rx="34" fill="url(#jacket)"/>
+  <circle cx="190" cy="406" r="36" fill="#182838"/>
+  <circle cx="322" cy="406" r="36" fill="#182838"/>
+  <rect x="184" y="196" width="144" height="224" rx="58" fill="#126d7d" stroke="#55e9f4" stroke-width="8"/>
+  <path d="M184 230 L132 270 L172 414 L228 370 L228 218Z" fill="url(#jacket)"/>
+  <path d="M328 230 L380 270 L340 414 L284 370 L284 218Z" fill="url(#jacket)"/>
+  <path d="M256 222 V405" stroke="#ff9e35" stroke-width="12"/>
+  <rect x="128" y="226" width="72" height="190" rx="30" fill="#17364a" stroke="#54e9f4" stroke-width="7"/>
+  <circle cx="165" cy="285" r="10" fill="#57effc"/>
+  <rect x="215" y="150" width="82" height="70" rx="24" fill="#b97a51"/>
+  <circle cx="256" cy="128" r="92" fill="#b97a51" stroke="#6e3f2d" stroke-width="8"/>
+  <path d="M174 119 Q178 34 257 32 Q340 36 344 119 L316 84 L289 112 L260 72 L227 108 L198 78Z" fill="#17212b"/>
+  <rect x="164" y="66" width="184" height="48" rx="22" fill="url(#visor)" stroke="#56e9fa" stroke-width="8"/>
+  <circle cx="224" cy="143" r="8" fill="#171c21"/>
+  <circle cx="288" cy="143" r="8" fill="#171c21"/>
+  <path d="M222 172 Q256 199 290 172" fill="none" stroke="#6c382c" stroke-width="8" stroke-linecap="round"/>
+  <rect x="330" y="344" width="88" height="54" rx="18" fill="#061c2d" stroke="#55e9f4" stroke-width="7"/>
+  <rect x="188" y="402" width="70" height="66" rx="23" fill="#203244" stroke="#92abb9" stroke-width="8"/>
+  <rect x="264" y="402" width="70" height="66" rx="23" fill="#203244" stroke="#92abb9" stroke-width="8"/>
+</svg>

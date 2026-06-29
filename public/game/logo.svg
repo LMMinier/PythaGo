@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 460">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0b2d4c"/><stop offset="1" stop-color="#061425"/></linearGradient><filter id="g"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect x="48" y="38" width="928" height="384" rx="72" fill="url(#bg)" stroke="#54e8fa" stroke-width="10"/>
+  <text x="512" y="172" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="124" fill="#55e9fb" stroke="#052138" stroke-width="7" paint-order="stroke" filter="url(#g)">PYTHA</text>
+  <text x="512" y="320" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="176" fill="#ffbe34" stroke="#532900" stroke-width="9" paint-order="stroke">GO</text>
+  <text x="512" y="391" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="42" letter-spacing="8" fill="#f5fbff">CODE BOROUGH</text>
+</svg>
