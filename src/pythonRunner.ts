@@ -48,21 +48,25 @@ json.dumps({"success":success,"output":stdout.getvalue()[:12000],"error":error,"
 self.onmessage = async ({data}) => {
   if (data.type === 'init') {
     try {
-      importScripts(data.base + 'pyodide.js');
-      pyodide = await loadPyodide({ indexURL: data.base });
-      postMessage({type:'ready'});
-    } catch (e) { postMessage({type:'fatal', error:String(e?.message || e)}); }
+      const module = await import(data.base + 'pyodide.mjs');
+      pyodide = await module.loadPyodide({ indexURL: data.base });
+      self.postMessage({type:'ready'});
+    } catch (e) {
+      self.postMessage({type:'fatal', error:String(e?.message || e)});
+    }
+    return;
   }
   if (data.type === 'run') {
     try {
+      if (!pyodide) throw new Error('Python runtime is not ready.');
       pyodide.globals.set('__source__', data.source);
       pyodide.globals.set('__tests__', data.tests);
       const raw = await pyodide.runPythonAsync(EXECUTOR);
-      postMessage({type:'result', result:JSON.parse(raw)});
+      self.postMessage({type:'result', result:JSON.parse(raw)});
     } catch (e) {
-      postMessage({type:'result', result:{success:false,output:'',error:String(e?.message||e),actions:[],durationMs:0}});
+      self.postMessage({type:'result', result:{success:false,output:'',error:String(e?.message||e),actions:[],durationMs:0}});
     } finally {
-      try { pyodide.globals.delete('__source__'); pyodide.globals.delete('__tests__'); } catch (_) {}
+      try { pyodide?.globals.delete('__source__'); pyodide?.globals.delete('__tests__'); } catch (_) {}
     }
   }
 };
@@ -79,36 +83,50 @@ export class PythonRunner {
 
   private spawn() {
     this.worker?.terminate();
-    const url=URL.createObjectURL(new Blob([WORKER],{type:'application/javascript'}));
-    this.worker=new Worker(url); URL.revokeObjectURL(url);
-    this.readyPromise=new Promise((resolve,reject)=>{this.readyResolve=resolve;this.readyReject=reject;});
-    this.worker.onmessage=({data})=>{
-      if(data.type==='ready') this.readyResolve?.();
-      if(data.type==='fatal') this.readyReject?.(new Error(data.error));
-      if(data.type==='result' && this.pending){clearTimeout(this.pending.timeout);this.pending.resolve(data.result);this.pending=undefined;}
+    const url = URL.createObjectURL(new Blob([WORKER], { type: 'text/javascript' }));
+    this.worker = new Worker(url, { type: 'module' });
+    URL.revokeObjectURL(url);
+    this.readyPromise = new Promise((resolve, reject) => {
+      this.readyResolve = resolve;
+      this.readyReject = reject;
+    });
+    this.worker.onmessage = ({data}) => {
+      if (data.type === 'ready') this.readyResolve?.();
+      if (data.type === 'fatal') this.readyReject?.(new Error(data.error));
+      if (data.type === 'result' && this.pending) {
+        clearTimeout(this.pending.timeout);
+        this.pending.resolve(data.result);
+        this.pending = undefined;
+      }
     };
-    this.worker.onerror=(e)=>this.readyReject?.(new Error(e.message));
-    this.worker.postMessage({type:'init',base:this.base});
+    this.worker.onerror = (event) => this.readyReject?.(new Error(event.message || 'Python worker failed.'));
+    this.worker.postMessage({ type: 'init', base: this.base });
   }
 
-  ready(){return this.readyPromise;}
+  ready() { return this.readyPromise; }
 
-  async run(source:string,tests:string,limit=4500):Promise<RunResult>{
+  async run(source: string, tests: string, limit = 4500): Promise<RunResult> {
     await this.readyPromise;
-    if(this.pending) throw new Error('A program is already running.');
-    return new Promise(resolve=>{
-      const timeout=setTimeout(()=>{
-        this.pending=undefined; this.spawn();
-        resolve({success:false,output:'',error:'Execution stopped: time limit exceeded. Check for an infinite loop.',actions:[],durationMs:limit});
-      },limit);
-      this.pending={resolve,timeout};
-      this.worker.postMessage({type:'run',source,tests});
+    if (this.pending) throw new Error('A program is already running.');
+    return new Promise((resolve) => {
+      const timeout = setTimeout(() => {
+        this.pending = undefined;
+        this.spawn();
+        resolve({ success: false, output: '', error: 'Execution stopped: time limit exceeded. Check for an infinite loop.', actions: [], durationMs: limit });
+      }, limit);
+      this.pending = { resolve, timeout };
+      this.worker.postMessage({ type: 'run', source, tests });
     });
   }
 
-  stop(){
-    if(this.pending){clearTimeout(this.pending.timeout);this.pending.resolve({success:false,output:'',error:'Execution stopped by player.',actions:[],durationMs:0});this.pending=undefined;}
+  stop() {
+    if (this.pending) {
+      clearTimeout(this.pending.timeout);
+      this.pending.resolve({ success: false, output: '', error: 'Execution stopped by player.', actions: [], durationMs: 0 });
+      this.pending = undefined;
+    }
     this.spawn();
   }
-  destroy(){this.worker?.terminate();}
+
+  destroy() { this.worker?.terminate(); }
 }
