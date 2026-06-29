@@ -51,8 +51,13 @@ export default function GameDom({ loadProgress, saveProgress }: Props) {
 
   useEffect(() => {
     if (!started || !mountRef.current || gameRef.current) return;
-    gameRef.current = createGame(mountRef.current, base);
+    let cancelled = false;
+    createGame(mountRef.current, base).then((controller) => {
+      if (cancelled) { controller.destroy(); return; }
+      gameRef.current = controller;
+    }).catch(() => undefined);
     return () => {
+      cancelled = true;
       gameRef.current?.destroy();
       gameRef.current = undefined;
     };
