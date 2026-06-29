@@ -2,13 +2,13 @@
 
 PythaGo is a story-driven mobile game where players learn real Python by restoring a futuristic city. It runs in **Expo Go**, renders the world with **Phaser**, and executes Python locally through **Pyodide/CPython WebAssembly**.
 
-![PythaGo title art](public/game/title-screen.svg)
+![PythaGo high-resolution character art](public/game/pythago-character.svg)
 
 ## Playable vertical slice
 
 The first district includes:
 
-- High-resolution vector player and Byte robot sprites with Phaser animation
+- High-resolution vector player and Byte robot character art with Phaser animation
 - A Phaser city scene with touch movement controls
 - Five missions: `print`, variables, `if/else`, loops, and functions
 - Real local Python compilation and execution in a resettable Web Worker

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" role="img" aria-label="High resolution PythaGo learner character with Byte robot">
+  <defs>
+    <radialGradient id="floorGlow" cx="50%" cy="50%" r="54%">
+      <stop offset="0" stop-color="#5cecff" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#0b6d87" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#061321" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="suit" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#0f7886"/>
+      <stop offset="1" stop-color="#07404d"/>
+    </linearGradient>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#a96b3d"/>
+      <stop offset="1" stop-color="#62351f"/>
+    </linearGradient>
+    <linearGradient id="visor" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#7af8ff"/>
+      <stop offset="0.5" stop-color="#20b7cb"/>
+      <stop offset="1" stop-color="#0b4458"/>
+    </linearGradient>
+    <linearGradient id="robotBody" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#8ba6b5"/>
+      <stop offset="1" stop-color="#425868"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#000814" flood-opacity="0.45"/>
+    </filter>
+    <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="2048" height="2048" fill="#061321"/>
+  <g opacity="0.55" stroke="#5cecff" stroke-width="4">
+    <path d="M0 360h2048M0 588h2048M0 816h2048M0 1044h2048" opacity="0.18"/>
+    <path d="M232 0v2048M512 0v2048M792 0v2048M1072 0v2048M1352 0v2048M1632 0v2048" opacity="0.2"/>
+  </g>
+  <ellipse cx="1024" cy="1600" rx="760" ry="220" fill="url(#floorGlow)"/>
+
+  <g filter="url(#softShadow)">
+    <g id="learner" transform="translate(390 250)">
+      <circle cx="500" cy="490" r="275" fill="url(#skin)"/>
+      <path d="M245 415c48-178 170-284 321-274 122 8 211 84 246 206-62-52-125-78-190-77-54 0-103 20-147 59-57-50-124-79-230 86z" fill="#141b24"/>
+      <path d="M325 350h350c42 0 76 34 76 76v13c0 42-34 76-76 76H325c-42 0-76-34-76-76v-13c0-42 34-76 76-76z" fill="#172536" stroke="#5cecff" stroke-width="18" filter="url(#cyanGlow)"/>
+      <path d="M314 392h372c14 0 26 12 26 26v20c0 15-12 27-26 27H314c-14 0-26-12-26-27v-20c0-14 12-26 26-26z" fill="url(#visor)" opacity="0.75"/>
+      <circle cx="430" cy="565" r="17" fill="#020812"/>
+      <circle cx="575" cy="565" r="17" fill="#020812"/>
+      <path d="M428 650c54 60 120 60 174 0" fill="none" stroke="#052b34" stroke-width="18" stroke-linecap="round"/>
+      <path d="M220 715h560c70 0 126 56 126 126v640H94V841c0-70 56-126 126-126z" fill="url(#suit)"/>
+      <path d="M94 841c0-70 56-126 126-126h70v766H94zM710 715h70c70 0 126 56 126 126v640H710z" fill="#8d2a28"/>
+      <path d="M294 716h412v96H294z" fill="#08313a" opacity="0.75"/>
+      <path d="M252 960h496" stroke="#5cecff" stroke-opacity="0.28" stroke-width="10"/>
+      <path d="M252 1108h496" stroke="#5cecff" stroke-opacity="0.2" stroke-width="8"/>
+    </g>
+
+    <g id="byte-robot" transform="translate(1165 800)">
+      <rect x="74" y="0" width="435" height="350" rx="130" fill="url(#robotBody)" stroke="#223443" stroke-width="22"/>
+      <rect x="128" y="70" width="327" height="205" rx="82" fill="#092534" stroke="#5cecff" stroke-opacity="0.7" stroke-width="12"/>
+      <circle cx="220" cy="165" r="35" fill="#42dce8"/>
+      <circle cx="363" cy="165" r="35" fill="#42dce8"/>
+      <path d="M215 230c55 50 106 50 153 0" fill="none" stroke="#42dce8" stroke-width="18" stroke-linecap="round"/>
+      <rect x="134" y="350" width="315" height="235" rx="70" fill="url(#robotBody)" stroke="#223443" stroke-width="20"/>
+      <rect x="195" y="417" width="194" height="70" rx="28" fill="#073746" stroke="#5cecff" stroke-opacity="0.55" stroke-width="10"/>
+      <path d="M74 175H0M583 175h-74" stroke="#627c8b" stroke-width="26" stroke-linecap="round"/>
+      <circle cx="292" cy="-34" r="20" fill="#5cecff" filter="url(#cyanGlow)"/>
+      <path d="M292-14V0" stroke="#5cecff" stroke-width="10"/>
+    </g>
+  </g>
+
+  <text x="1024" y="1840" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="92" fill="#ffd05a" stroke="#061321" stroke-width="8" paint-order="stroke">LEARN PYTHON. RESTORE THE CITY.</text>
+</svg>
