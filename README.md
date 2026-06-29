@@ -59,6 +59,27 @@ If EAS shows `Failed to read "/main/package.json"`, the build form is pointing a
 
 The credentials warning is separate from the `/main/package.json` error. After the base directory is blank, configure build credentials in EAS: choose an EAS-managed Android keystore for Android, and use an Apple Developer account or imported distribution certificate/provisioning profile for iOS.
 
+
+### GitHub PR conflict troubleshooting
+
+If GitHub shows “Resolving conflicts between `main` and `codex/complete-github-repository-upload`”, resolve that before starting another EAS build. The build should run from a clean `main` commit, not from a PR that still has conflict markers or unresolved add/add conflicts.
+
+Recommended local fix:
+
+```bash
+git checkout codex/complete-github-repository-upload
+git fetch origin main
+git merge origin/main
+# Choose the intended versions of the conflicted files, then:
+git add README.md eas.json public/game/*.svg src/gameScene.ts src/lessons.ts src/pythonRunner.ts
+npm run typecheck
+npm run export:web
+git commit
+git push
+```
+
+Do not paste conflict-marker blocks (`<<<<<<<`, `=======`, `>>>>>>>`) into SVG or TypeScript files. After the conflict-resolution commit is pushed, GitHub should stop listing the files as conflicting and the PR can be merged into `main`.
+
 ## Validate
 
 ```bash
