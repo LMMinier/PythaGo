@@ -1,11 +1,30 @@
-import Phaser from 'phaser';
+import type * as Phaser from 'phaser';
 import type { GameAction } from './lessons';
 
 export type Direction='up'|'down'|'left'|'right';
 export interface GameController { move:(d:Direction)=>void; actions:(a:GameAction[])=>void; celebrate:()=>void; destroy:()=>void; }
 
-export function createGame(parent:HTMLElement,base:string):GameController{
-  class Scene extends Phaser.Scene{
+// Phaser is loaded from a CDN at runtime (like the Pyodide runtime) so bundlers
+// such as Expo Snack never have to resolve the large npm package. The npm dep is
+// kept as a devDependency for TypeScript types and local builds only.
+const PHASER_CDN='https://cdn.jsdelivr.net/npm/phaser@4.2.0/dist/phaser.min.js';
+let phaserPromise:Promise<any>|undefined;
+function loadPhaser():Promise<any>{
+  if(typeof window!=='undefined'&&(window as any).Phaser) return Promise.resolve((window as any).Phaser);
+  if(phaserPromise) return phaserPromise;
+  phaserPromise=new Promise((resolve,reject)=>{
+    const script=document.createElement('script');
+    script.src=PHASER_CDN; script.async=true;
+    script.onload=()=>resolve((window as any).Phaser);
+    script.onerror=()=>reject(new Error('Failed to load Phaser from CDN.'));
+    document.head.appendChild(script);
+  });
+  return phaserPromise;
+}
+
+export async function createGame(parent:HTMLElement,base:string):Promise<GameController>{
+  const P:any=await loadPhaser();
+  class Scene extends P.Scene{
     hero!:Phaser.GameObjects.Sprite; byte!:Phaser.GameObjects.Sprite; terminals=new Map<string,Phaser.GameObjects.Container>();
     constructor(){super('borough');}
     preload(){
@@ -35,7 +54,7 @@ export function createGame(parent:HTMLElement,base:string):GameController{
     }
     move(d:Direction){
       let x=this.hero.x,y=this.hero.y,row=3; if(d==='left'){x-=30;row=1} if(d==='right'){x+=30;row=0} if(d==='up'){y-=25;row=2} if(d==='down'){y+=25;row=3}
-      x=Phaser.Math.Clamp(x,65,835); y=Phaser.Math.Clamp(y,245,410);
+      x=P.Math.Clamp(x,65,835); y=P.Math.Clamp(y,245,410);
       if(d==='left')this.hero.setFlipX(true); if(d==='right')this.hero.setFlipX(false);
       this.tweens.add({targets:this.hero,x,y,angle:d==='up'?-2:d==='down'?2:0,duration:150,ease:'Sine.Out'});
       this.tweens.add({targets:this.byte,x:x+105,y:y+28,duration:380,ease:'Sine.Out'});
@@ -62,6 +81,6 @@ export function createGame(parent:HTMLElement,base:string):GameController{
       this.tweens.add({targets:this.byte,angle:360,duration:700,ease:'Back.Out'});
     }
   }
-  const game=new Phaser.Game({type:Phaser.AUTO,parent,width:900,height:500,backgroundColor:'#071525',antialias:true,scene:Scene,scale:{mode:Phaser.Scale.FIT,autoCenter:Phaser.Scale.CENTER_BOTH,width:900,height:500}});
+  const game=new P.Game({type:P.AUTO,parent,width:900,height:500,backgroundColor:'#071525',antialias:true,scene:Scene,scale:{mode:P.Scale.FIT,autoCenter:P.Scale.CENTER_BOTH,width:900,height:500}});
   return {move:d=>game.events.emit('move',d),actions:a=>game.events.emit('actions',a),celebrate:()=>game.events.emit('celebrate'),destroy:()=>game.destroy(true)};
 }
