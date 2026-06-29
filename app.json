@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "PythaGo: Code Borough",
+    "slug": "pythago-code-borough",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#030a14",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lmminier.pythago"
+    },
+    "android": {
+      "package": "com.lmminier.pythago",
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "curriculumVersion": 1
+    }
+  }
+}
